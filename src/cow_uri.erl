@@ -50,6 +50,17 @@ urldecode(<< $9, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $9 >>);
 urldecode(<< $:, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $: >>);
 urldecode(<< $;, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $; >>);
 urldecode(<< $=, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $= >>);
+urldecode(<< $[, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $[ >>);
+urldecode(<< $], Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $] >>);
+urldecode(<< $<, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $< >>);
+urldecode(<< $>, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $> >>);
+urldecode(<< $#, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $# >>);
+urldecode(<< ${, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, ${ >>);
+urldecode(<< $}, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $} >>);
+urldecode(<< $|, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $| >>);
+urldecode(<< $\\, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $\\ >>);
+urldecode(<< $^, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $^ >>);
+urldecode(<< $`, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $` >>);
 urldecode(<< $@, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $@ >>);
 urldecode(<< $A, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $A >>);
 urldecode(<< $B, Rest/bits >>, Acc) -> urldecode(Rest, << Acc/bits, $B >>);
@@ -135,6 +146,7 @@ urldecode_test_() ->
 	Tests = [
 		{<<"%20">>, <<" ">>},
 		{<<"+">>, <<"+">>},
+        {<<"[]<>#{}|\\^`">>, <<"[]<>#{}|\\^`">>},
 		{<<"%00">>, <<0>>},
 		{<<"%fF">>, <<255>>},
 		{<<"123">>, <<"123">>},
